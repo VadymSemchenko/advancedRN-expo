@@ -10,7 +10,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 class Deck extends Component {
 
-    position = new Animated.ValueXY(0,0);
+    position = new Animated.ValueXY();
     panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
         onPanResponderMove: (event, gesture) => {
@@ -19,7 +19,9 @@ class Deck extends Component {
                 y: gesture.dy
             });
         },
-        onPanResponderRelease: () => {}
+        onPanResponderRelease: () => {
+            this.resetPosition();
+        }
     });
 
     getCardStyle() {
@@ -33,8 +35,16 @@ class Deck extends Component {
                 rotate
             }]
         };
-        console.log('CARD STYLE', cardStyle);
         return cardStyle;
+    };
+
+    resetPosition() {
+        Animated.spring(this.position, {
+            toValue: {
+                x: 0,
+                y: 0
+            }
+        }).start();
     };
 
     renderCards = () => this.props.data.map((item, index) => {
