@@ -1,12 +1,12 @@
 import Expo from 'expo';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Card, Button } from 'react-native-elements';
+import {uid} from 'react-uid';
 
 import Deck from './src/Deck';
 
 console.disableYellowBox = true;
-
-console.log('START');
 
 const DATA = [
   { id: 1, text: 'Card #1', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
@@ -23,11 +23,27 @@ const DATA = [
 export default class App extends Component {
 
   renderCard(item) {
-    console.log('TEXT', item.text);
     return (
-        <Text key={item.text} >
-          {item.text}
+      <Card
+      title={item.text}
+      image={{
+        uri: item.uri
+      }}
+      key={uid(item)}
+      >
+        <Text style={{
+          marginBottom: 10
+        }}>
+          I can customize card further
         </Text>
+        <Button
+          icon={{
+            name: "code",
+            backgroudColor: '#03A9F4'
+          }}
+          title="View Now!"
+        />
+      </Card>
     );
   };
 
