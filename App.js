@@ -11,13 +11,13 @@ console.disableYellowBox = true;
 const DATA = [
   { id: 1, text: 'Card #1', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
   { id: 2, text: 'Card #2', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
-  { id: 3, text: 'Card #3', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
-  { id: 4, text: 'Card #4', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
-  { id: 5, text: 'Card #5', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
-  { id: 6, text: 'Card #6', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
-  { id: 7, text: 'Card #7', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
-  { id: 8, text: 'Card #8', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
-  { id: 9, text: 'Card #9', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' }
+  // { id: 3, text: 'Card #3', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
+  // { id: 4, text: 'Card #4', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
+  // { id: 5, text: 'Card #5', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
+  // { id: 6, text: 'Card #6', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
+  // { id: 7, text: 'Card #7', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
+  // { id: 8, text: 'Card #8', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' },
+  // { id: 9, text: 'Card #9', uri: 'https://vignette.wikia.nocookie.net/dragonballfanon/images/7/70/Random.png/revision/latest?cb=20161221030547' }
 ];
 
 export default class App extends Component {
