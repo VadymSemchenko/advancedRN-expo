@@ -47,12 +47,26 @@ export default class App extends Component {
     );
   };
 
+  renderNoMoreCards = () => (
+    <Card title="All Done">
+      <Text style={{ marginBottom: 10 }}>
+        There`s no more content here
+      </Text>
+      <Button
+          backgroundColor="#03A9F4"
+          title="Get more!"
+      />
+    </Card>
+  );
+
   render() {
     return (
         <View style={styles.container}>
           <Deck
             data={DATA}
             renderCard={this.renderCard}
+            onSwipeLeft={({ text }) => console.log(`${text} has been swiped to the left`)}
+            renderNoMoreCards={this.renderNoMoreCards}
           />
         </View>
     );
