@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
     View,
     Animated,
     PanResponder,
-    Dimensions
+    Dimensions,
+    StyleSheet
 } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -41,7 +42,7 @@ class Deck extends Component {
         index: 0
     };
 
-    getCardStyle() {
+    getCardStyle = () => {
         const rotate = this.position.x.interpolate({
             inputRange: [-SCREEN_WIDTH * 1.5, 0, +SCREEN_WIDTH * 1.5],
             outputRange: ['-120deg', '0deg', '120deg']
@@ -70,12 +71,15 @@ class Deck extends Component {
         const { index } = this.state;
         const item = data[index];
         direction === RIGHT ? onSwipeRight(item) : onSwipeLeft(item);
-        this.setState(prevState => ({
-            index: ++prevState.index
-        }));
         this.position.setValue({
             x: 0,
             y: 0
+        });
+        // this.setState(prevState => ({
+        //     index: prevState.index++
+        // }));
+        this.setState({
+            index: this.state.index + 1
         });
     };
 
@@ -91,35 +95,47 @@ class Deck extends Component {
     renderCards = () => {
     const { index } = this.state;
     const { renderNoMoreCards, data } = this.props;
-    console.log('DATA', data);
     if (index >= data.length) {
         console.log('RENDER_NO_MORE_CARDS', renderNoMoreCards);
         return renderNoMoreCards();
     };
-    return data.map((item, ind, arr) => {
-        console.log('ARR', arr, "length", arr.length);
-            if (ind < index) {
-                console.log('RETURN NULL');
-                return null;
-            } else if (ind === index) {
-                return (
-                    <Animated.View key={item.text} style={this.getCardStyle()} {...this.panResponder.panHandlers}>
-                        {this.props.renderCard(item)}
-                    </Animated.View>
+    return data.map((item, ind) => {
+        if (ind < index) {
+            console.log('RETURN NULL');
+            return null;
+        };
+        if (ind === index) {
+            console.log('ANIMATED', item.text);
+            return (
+                <Animated.View key={item.text} style={[this.getCardStyle(), styles.cardStyle]} {...this.panResponder.panHandlers}>
+                    {this.props.renderCard(item)}
+                </Animated.View>
+            );
+        } else {
+            console.log('NORMAL', item.text)
+            return (
+                <View key={item.text} style={[styles.cardStyle]}>
+                    {this.props.renderCard(item)}
+                </View>
                 );
-            }  else {
-            return (this.props.renderCard(item));
-            }
-        })
+        };
+        }).reverse();
     };
 
     render() {
-        console.log('iNDEX', this.state.index, 'DATA LENGTH', this.props.data.length);
+        console.log('iNDEX', this.state.index, 'DATA', this.props.data);
         return (
             <View>
                 {this.renderCards()}
             </View>
         );
+    }
+};
+
+const styles = {
+    cardStyle: {
+        position: 'absolute',
+        width: SCREEN_WIDTH
     }
 };
 
