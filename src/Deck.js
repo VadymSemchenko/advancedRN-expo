@@ -4,7 +4,9 @@ import {
     Animated,
     PanResponder,
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    LayoutAnimation,
+    UIManager
 } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -19,6 +21,19 @@ class Deck extends Component {
         onSwipeRight: ({ text }) => console.log(`${text} has been swiped to the right`)
     };
 
+    componentDidUpdate(prevProps) {
+        UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+        LayoutAnimation.spring();
+        if(prevProps.data !== this.props.data) {
+            this.setState(() => ({
+                index: 0
+            }));
+        }
+    };
+
+    state = {
+        index: 0
+    };
     position = new Animated.ValueXY();
     panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
@@ -38,9 +53,6 @@ class Deck extends Component {
             }
         }
     });
-    state = {
-        index: 0
-    };
 
     getCardStyle = () => {
         const rotate = this.position.x.interpolate({
@@ -75,12 +87,12 @@ class Deck extends Component {
             x: 0,
             y: 0
         });
-        // this.setState(prevState => ({
-        //     index: prevState.index++
-        // }));
-        this.setState({
-            index: this.state.index + 1
-        });
+        this.setState(prevState => ({
+            index: ++prevState.index
+        }));
+        // this.setState({
+        //     index: this.state.index + 1
+        // });
     };
 
     resetPosition() {
@@ -109,17 +121,25 @@ class Deck extends Component {
                 </Animated.View>
             );
         } else {
+            const movedDownInStack = StyleSheet.create({
+                top: 70 * (ind - index)
+            });
             return (
-                <View key={item.text} style={[styles.cardStyle, styles.backgroundLayerCard]}>
+                <Animated.View
+                    key={item.text}
+                    style={[
+                        styles.cardStyle,
+                        styles.backgroundLayerCard,
+                        movedDownInStack
+                        ]}>
                     {this.props.renderCard(item)}
-                </View>
+                </Animated.View>
                 );
         };
         }).reverse();
     };
 
     render() {
-        console.log('iNDEX', this.state.index, 'DATA', this.props.data);
         return (
             <View>
                 {this.renderCards()}
