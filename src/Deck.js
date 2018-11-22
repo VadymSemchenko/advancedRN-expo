@@ -96,25 +96,21 @@ class Deck extends Component {
     const { index } = this.state;
     const { renderNoMoreCards, data } = this.props;
     if (index >= data.length) {
-        console.log('RENDER_NO_MORE_CARDS', renderNoMoreCards);
         return renderNoMoreCards();
     };
     return data.map((item, ind) => {
         if (ind < index) {
-            console.log('RETURN NULL');
             return null;
         };
         if (ind === index) {
-            console.log('ANIMATED', item.text);
             return (
                 <Animated.View key={item.text} style={[this.getCardStyle(), styles.cardStyle]} {...this.panResponder.panHandlers}>
                     {this.props.renderCard(item)}
                 </Animated.View>
             );
         } else {
-            console.log('NORMAL', item.text)
             return (
-                <View key={item.text} style={[styles.cardStyle]}>
+                <View key={item.text} style={[styles.cardStyle, styles.backgroundLayerCard]}>
                     {this.props.renderCard(item)}
                 </View>
                 );
@@ -136,6 +132,9 @@ const styles = {
     cardStyle: {
         position: 'absolute',
         width: SCREEN_WIDTH
+    },
+    backgroundLayerCard: {
+        zIndex: -10
     }
 };
 
